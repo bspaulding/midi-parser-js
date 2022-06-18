@@ -33,6 +33,17 @@ type MIDIMetaEventData =
   | { data: Uint8Array }
   | Record<never, never>;
 
+function twosComplement(b: number): number {
+  if (b >> 7) {
+    const c = (b ^ 0b11111111) + 1;
+    const d = -c;
+    console.log({ c, d });
+    return d;
+  } else {
+    return b;
+  }
+}
+
 function parseData(
   type: MIDIMetaEventType,
   bytes: Uint8Array
@@ -69,7 +80,7 @@ function parseData(
       };
     case MIDIMetaEventType.KeySignature:
       return {
-        sf: bytes[0] & 0b10000000 ? -1 * (bytes[0] & 0b01111111) : bytes[0],
+        sf: twosComplement(bytes[0]),
         mi: bytes[1],
       };
     case MIDIMetaEventType.SequencerSpecific:

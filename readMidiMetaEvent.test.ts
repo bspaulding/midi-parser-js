@@ -94,7 +94,7 @@ const cases = [
         type: MIDIMetaEventType.KeySignature,
         length: 2,
         description: "KeySignature",
-        sf: -7,
+        sf: -121,
         mi: 1,
       },
       rest: new Uint8Array([]),
@@ -109,6 +109,19 @@ const cases = [
         description: "KeySignature",
         sf: 7,
         mi: 0,
+      },
+      rest: new Uint8Array([]),
+    },
+  },
+  {
+    bytes: [0x59, 0x02, 252, 1],
+    expected: {
+      event: {
+        type: MIDIMetaEventType.KeySignature,
+        length: 2,
+        description: "KeySignature",
+        sf: -4,
+        mi: 1,
       },
       rest: new Uint8Array([]),
     },
